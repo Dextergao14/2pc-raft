@@ -1,0 +1,30 @@
+
+recompile py code
+python -m grpc_tools.protoc -I. --python_out=py_out --grpc_python_out=grpc_py_out twopc.proto
+
+recompile java code
+mvn clean compile
+
+execution order:
+1. py server(vote server) - cmd: python phase_1_server_participants.py 50051 61051
+2. java server(decision server) - cmd: mvn exec:java -Dexec.mainClass="com.example.twopc.GrpcServerWrapper"
+3. py client(vote coord) - cmd: python phase_1_client_coordinator.py
+4. java client(decision coord) - java -jar twopc-decision-phase-client.jar
+
+Behavior: 
+All participants always vote VOTE_COMMIT for each node, leading to DECISION_COMMIT.
+
+docker compose up --build
+
+
+clean ports in use:
+sudo fuser -k 181/tcp
+sudo fuser -k 182/tcp
+sudo fuser -k 183/tcp
+sudo fuser -k 184/tcp
+sudo fuser -k 185/tcp
+sudo fuser -k 191/tcp
+sudo fuser -k 192/tcp
+sudo fuser -k 193/tcp
+sudo fuser -k 194/tcp
+sudo fuser -k 195/tcp

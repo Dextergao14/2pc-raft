@@ -1,0 +1,24 @@
+FROM python:3.8-slim
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# install JAVA
+RUN apt-get update && apt-get install -y default-jre
+
+WORKDIR /app
+
+COPY py_out /app/py_out
+COPY grpc_py_out /app/grpc_py_out
+
+# copy python code
+COPY phase_1_server_participants.py .
+
+# copy java jar
+COPY twopc-decision-phase/target/twopc-decision-phase-server.jar .
+
+# copy booting sh
+COPY start_node.sh .
+RUN chmod +x start_node.sh
+
+CMD ["./start_node.sh"]

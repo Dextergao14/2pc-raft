@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package twopc;
+
+// Vote phase
+enum Vote {
+    VOTE_UNSPECIFIED = 0; // default value given proto3 uses the first enum val defaultly, for debugging
+    VOTE_COMMIT = 1;
+    VOTE_ABORT = 2;
+}
+
+// Decision phase
+enum GlobalDecision {
+    DECISION_UNSPECIFIED = 0;
+    DECISION_COMMIT = 1;
+    DECISION_ABORT = 2;
+}
+
+// Vote requests from coordinator during vote-phase
+message VoteRequest {
+    string transaction_id = 1; // 1 here is the serial num of the corresponding field
+}
+
+message VoteResponse {
+    string transaction_id = 1;
+    Vote vote = 2; // likewise, 2 is the serial num of field, which is the defined enum - vote 
+}
+
+message DecisionRequest {
+    string transaction_id = 1;
+    GlobalDecision decision = 2;
+}
+
+message DecisionResponse {
+    string transaction_id = 1;
+    bool ack = 2;
+}
+
+message VotingResults {
+    GlobalDecision result = 1;
+}
+
+service TwoPhaseCommit {
+    // vote-phase messaging loop - for coordinator use
+    rpc SendVote(VoteRequest) returns (VoteResponse);
+
+    // decision-phase messaging loop - for coordinator use
+    rpc SendDecision(DecisionRequest) returns (DecisionResponse);
+
+    // decision-phase info helper - retrieve votes from phase 1 to count and avoid re-voting
+    rpc QueryVote(VoteRequest) returns (VoteResponse);
+}

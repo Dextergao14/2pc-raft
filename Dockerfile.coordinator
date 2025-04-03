@@ -1,0 +1,23 @@
+FROM python:3.8-slim
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+# install JAVA
+RUN apt-get update && apt-get install -y default-jre
+
+WORKDIR /app
+
+COPY py_out /app/py_out
+COPY grpc_py_out /app/grpc_py_out
+
+# copy python coord code
+COPY phase_1_client_coordinator.py .
+
+# copy java coordinator jar
+COPY twopc-decision-phase/target/twopc-decision-phase-client.jar .
+
+# copy booting sh
+COPY start_coordinator.sh .
+RUN chmod +x start_coordinator.sh
+
+CMD ["./start_coordinator.sh"]

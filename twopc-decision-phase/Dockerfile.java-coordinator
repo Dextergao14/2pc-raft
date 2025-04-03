@@ -1,0 +1,4 @@
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY /target/twopc-decision-phase-client.jar .
+CMD ["java", "-jar", "twopc-decision-phase-client.jar"]

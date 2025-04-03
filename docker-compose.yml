@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  node1:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node1
+    ports:
+      - "181:181"  # vote-phase
+      - "191:191"  # java decision-phase
+    environment:
+      - NODE_ID=node_1
+    command: ["./start_node.sh", "181", "191"]
+
+  node2:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node2
+    ports:
+      - "182:182"  # vote-phase
+      - "192:192"  # java decision-phase
+    environment:
+      - NODE_ID=node_2
+    command: ["./start_node.sh", "182", "192"]
+
+  node3:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node3
+    ports:
+      - "183:183"  # vote-phase
+      - "193:193"  # java decision-phase
+    environment:
+      - NODE_ID=node_3
+    command: ["./start_node.sh", "183", "193"]
+
+  node4:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node4
+    ports:
+      - "184:184"  # vote-phase
+      - "194:194"  # java decision-phase
+    environment:
+      - NODE_ID=node_4
+    command: ["./start_node.sh", "184", "194"]
+
+  node5:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: node5
+    ports:
+      - "185:185"  # vote-phase
+      - "195:195"  # java decision-phase
+    environment:
+      - NODE_ID=node_5
+    command: ["./start_node.sh", "185", "195"]
+  
+
+  coordinator:
+    build:
+      context: .
+      dockerfile: Dockerfile.coordinator
+    container_name: coordinator
+    environment:
+      - NODE_ID=node0
+
+    depends_on:
+      - node1
+      - node2
+      - node3
+      - node4
+      - node5
+    command: ./start_coordinator.sh
