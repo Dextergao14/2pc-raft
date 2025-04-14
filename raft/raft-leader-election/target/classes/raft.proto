@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package raft;
+
+option java_package = "com.example.raft";
+option java_outer_classname = "RaftOuterClass";
+
+
+
+enum Identity {
+    ID_FOLLOWER = 0;
+    ID_CANDIDATE = 1;
+    ID_LEADER = 2;
+}
+
+
+enum Vote {
+    VOTE_YES = 0;
+    VOTE_NO = 1;
+}
+
+message VoteRequest {
+    string transaction_id = 1;
+    int32 term = 2;
+    string candidate_id = 3;
+    int32 last_log_index = 4;
+    int32 last_log_term = 5;
+}
+
+message VoteResponse {
+    string transaction_id = 1;
+    int32 term = 2;
+    Vote vote = 3;
+}
+
+message LogEntry {
+    int32 term = 1;
+    int32 index = 2;
+    string command = 3;
+}
+
+message AppendEntriesRequest {
+    string transaction_id = 1;
+    int32 term = 2;
+    string leader_id = 3;
+    int32 prev_log_index = 4;
+    int32 prev_log_term = 5;
+    repeated LogEntry entries = 6; // empty is hb implicitly
+    int32 leader_commit_index = 7;
+}
+
+message AppendEntriesResponse {
+    string transaction_id = 1;
+    int32 term = 2;
+    bool ack = 3;
+}
+
+message IdentityType {
+    string transaction_id = 1;
+    int32 term = 2;
+    bool success = 3;
+}
+
+message IdTypeACK {
+    string transaction_id = 1;
+    bool ack = 2;
+}
+
+message StartHeartbeatRequest {
+    string leader_id = 1;
+    int32 term = 2;
+    repeated string peers = 3; // host:port format
+}
+
+message HbAck {
+    bool ack = 1;
+}
+
+service Raft {
+    rpc RequestVote(VoteRequest) returns (VoteResponse);
+    rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse);
+    rpc StartHeartbeat(StartHeartbeatRequest) returns (HbAck);
+}

@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  node1:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: raft-node1
+    ports:
+      - "201:201"  # vote
+      - "211:211"  # hb
+    environment:
+      - NODE_ID=raft-node1
+    command: ["./start_node.sh", "201", "211", "210"]
+
+  node2:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: raft-node2
+    ports:
+      - "202:202"  # vote
+      - "212:212"  # hb
+    environment:
+      - NODE_ID=raft-node2
+    command: ["./start_node.sh", "202", "212", "210"]
+
+  node3:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: raft-node3
+    ports:
+      - "203:203"  # vote
+      - "213:213"  # hb
+    environment:
+      - NODE_ID=raft-node3
+    command: ["./start_node.sh", "203", "213", "210"]
+
+  node4:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: raft-node4
+    ports:
+      - "204:204"  # vote
+      - "214:214"  # hb
+    environment:
+      - NODE_ID=raft-node4
+    command: ["./start_node.sh", "204", "214", "210"]
+
+  node5:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: raft-node5
+    ports:
+      - "205:205"  # vote & hb
+      - "215:215"  # hb
+    environment:
+      - NODE_ID=raft-node5
+    command: ["./start_node.sh", "205", "215", "210"]

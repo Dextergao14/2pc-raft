@@ -1,0 +1,30 @@
+FROM python:3.8-slim
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# install JAVA
+RUN apt-get update && apt-get install -y default-jre
+
+WORKDIR /app
+
+COPY raft-log-replication/py_out /app/py_out
+COPY raft-log-replication/grpc_py_out /app/grpc_py_out
+
+# copy python code
+COPY raft-log-replication/server.py .
+
+# copy java jar
+COPY raft-leader-election/target/raft-leader-election-server.jar .
+
+# copy python coord code
+COPY raft-log-replication/client.py .
+
+# copy java coordinator jar
+COPY raft-leader-election/target/raft-leader-election-client.jar .
+
+# copy booting sh
+COPY start_node.sh .
+RUN chmod +x start_node.sh
+
+CMD ["./start_node.sh"]
