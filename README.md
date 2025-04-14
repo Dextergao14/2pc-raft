@@ -73,7 +73,7 @@ This repository contains two separate distributed systems demos:
    cd ..
    ```
 
-4. Build Docker images (no cache):
+4. Build Docker images (no cache), make sure you're in the raft directory:
 
    ```bash
    docker compose build --no-cache
