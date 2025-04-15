@@ -76,8 +76,14 @@ message HbAck {
     bool ack = 1;
 }
 
+message HeartbeatRequest {
+  string leader_id = 1;
+  int32 term = 2;
+}
+
 service Raft {
     rpc RequestVote(VoteRequest) returns (VoteResponse);
     rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse);
     rpc StartHeartbeat(StartHeartbeatRequest) returns (HbAck);
+    rpc receiveHeartbeat(HeartbeatRequest) returns (HbAck);
 }

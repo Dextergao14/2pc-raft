@@ -28,6 +28,15 @@ class RaftServicer(raft_pb2_grpc.RaftServicer):
                 ack=False,
                 transaction_id=request.transaction_id
             )
+        elif request.term > self.cur_term:
+            self.cur_term = request.term
+            self.role = 'follower'
+    
+            return raft_pb2.AppendEntriesResponse(
+                term=self.cur_term,
+                ack=False,
+                transaction_id=request.transaction_id
+            )
         
         if request.term > self.cur_term:
             self.cur_term = request.term
@@ -90,6 +99,7 @@ def serve(port, hb_signal_port):
     raft_pb2_grpc.add_RaftServicer_to_server(RaftServicer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.add_insecure_port(f'[::]:{hb_signal_port}')
+    server.add_insecure_port(f'[::]:{211}')
     server.start()
     server.wait_for_termination()
 

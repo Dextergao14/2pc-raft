@@ -7221,6 +7221,619 @@ public final class RaftOuterClass {
 
   }
 
+  public interface HeartbeatRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:raft.HeartbeatRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string leader_id = 1;</code>
+     */
+    java.lang.String getLeaderId();
+    /**
+     * <code>string leader_id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getLeaderIdBytes();
+
+    /**
+     * <code>int32 term = 2;</code>
+     */
+    int getTerm();
+  }
+  /**
+   * Protobuf type {@code raft.HeartbeatRequest}
+   */
+  public  static final class HeartbeatRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:raft.HeartbeatRequest)
+      HeartbeatRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use HeartbeatRequest.newBuilder() to construct.
+    private HeartbeatRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private HeartbeatRequest() {
+      leaderId_ = "";
+      term_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private HeartbeatRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              leaderId_ = s;
+              break;
+            }
+            case 16: {
+
+              term_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.raft.RaftOuterClass.internal_static_raft_HeartbeatRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.raft.RaftOuterClass.internal_static_raft_HeartbeatRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.raft.RaftOuterClass.HeartbeatRequest.class, com.example.raft.RaftOuterClass.HeartbeatRequest.Builder.class);
+    }
+
+    public static final int LEADER_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object leaderId_;
+    /**
+     * <code>string leader_id = 1;</code>
+     */
+    public java.lang.String getLeaderId() {
+      java.lang.Object ref = leaderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        leaderId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string leader_id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLeaderIdBytes() {
+      java.lang.Object ref = leaderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        leaderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TERM_FIELD_NUMBER = 2;
+    private int term_;
+    /**
+     * <code>int32 term = 2;</code>
+     */
+    public int getTerm() {
+      return term_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getLeaderIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, leaderId_);
+      }
+      if (term_ != 0) {
+        output.writeInt32(2, term_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getLeaderIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, leaderId_);
+      }
+      if (term_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, term_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.example.raft.RaftOuterClass.HeartbeatRequest)) {
+        return super.equals(obj);
+      }
+      com.example.raft.RaftOuterClass.HeartbeatRequest other = (com.example.raft.RaftOuterClass.HeartbeatRequest) obj;
+
+      boolean result = true;
+      result = result && getLeaderId()
+          .equals(other.getLeaderId());
+      result = result && (getTerm()
+          == other.getTerm());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LEADER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getLeaderId().hashCode();
+      hash = (37 * hash) + TERM_FIELD_NUMBER;
+      hash = (53 * hash) + getTerm();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.example.raft.RaftOuterClass.HeartbeatRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code raft.HeartbeatRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:raft.HeartbeatRequest)
+        com.example.raft.RaftOuterClass.HeartbeatRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.raft.RaftOuterClass.internal_static_raft_HeartbeatRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.raft.RaftOuterClass.internal_static_raft_HeartbeatRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.raft.RaftOuterClass.HeartbeatRequest.class, com.example.raft.RaftOuterClass.HeartbeatRequest.Builder.class);
+      }
+
+      // Construct using com.example.raft.RaftOuterClass.HeartbeatRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        leaderId_ = "";
+
+        term_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.raft.RaftOuterClass.internal_static_raft_HeartbeatRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.example.raft.RaftOuterClass.HeartbeatRequest getDefaultInstanceForType() {
+        return com.example.raft.RaftOuterClass.HeartbeatRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.example.raft.RaftOuterClass.HeartbeatRequest build() {
+        com.example.raft.RaftOuterClass.HeartbeatRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.example.raft.RaftOuterClass.HeartbeatRequest buildPartial() {
+        com.example.raft.RaftOuterClass.HeartbeatRequest result = new com.example.raft.RaftOuterClass.HeartbeatRequest(this);
+        result.leaderId_ = leaderId_;
+        result.term_ = term_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.raft.RaftOuterClass.HeartbeatRequest) {
+          return mergeFrom((com.example.raft.RaftOuterClass.HeartbeatRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.raft.RaftOuterClass.HeartbeatRequest other) {
+        if (other == com.example.raft.RaftOuterClass.HeartbeatRequest.getDefaultInstance()) return this;
+        if (!other.getLeaderId().isEmpty()) {
+          leaderId_ = other.leaderId_;
+          onChanged();
+        }
+        if (other.getTerm() != 0) {
+          setTerm(other.getTerm());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.raft.RaftOuterClass.HeartbeatRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.raft.RaftOuterClass.HeartbeatRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object leaderId_ = "";
+      /**
+       * <code>string leader_id = 1;</code>
+       */
+      public java.lang.String getLeaderId() {
+        java.lang.Object ref = leaderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          leaderId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string leader_id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLeaderIdBytes() {
+        java.lang.Object ref = leaderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          leaderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string leader_id = 1;</code>
+       */
+      public Builder setLeaderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        leaderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string leader_id = 1;</code>
+       */
+      public Builder clearLeaderId() {
+        
+        leaderId_ = getDefaultInstance().getLeaderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string leader_id = 1;</code>
+       */
+      public Builder setLeaderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        leaderId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int term_ ;
+      /**
+       * <code>int32 term = 2;</code>
+       */
+      public int getTerm() {
+        return term_;
+      }
+      /**
+       * <code>int32 term = 2;</code>
+       */
+      public Builder setTerm(int value) {
+        
+        term_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 term = 2;</code>
+       */
+      public Builder clearTerm() {
+        
+        term_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:raft.HeartbeatRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:raft.HeartbeatRequest)
+    private static final com.example.raft.RaftOuterClass.HeartbeatRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.example.raft.RaftOuterClass.HeartbeatRequest();
+    }
+
+    public static com.example.raft.RaftOuterClass.HeartbeatRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<HeartbeatRequest>
+        PARSER = new com.google.protobuf.AbstractParser<HeartbeatRequest>() {
+      @java.lang.Override
+      public HeartbeatRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new HeartbeatRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<HeartbeatRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<HeartbeatRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.example.raft.RaftOuterClass.HeartbeatRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_raft_VoteRequest_descriptor;
   private static final 
@@ -7266,6 +7879,11 @@ public final class RaftOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_raft_HbAck_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_raft_HeartbeatRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_raft_HeartbeatRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7294,15 +7912,18 @@ public final class RaftOuterClass {
       "tion_id\030\001 \001(\t\022\013\n\003ack\030\002 \001(\010\"G\n\025StartHeart" +
       "beatRequest\022\021\n\tleader_id\030\001 \001(\t\022\014\n\004term\030\002" +
       " \001(\005\022\r\n\005peers\030\003 \003(\t\"\024\n\005HbAck\022\013\n\003ack\030\001 \001(" +
-      "\010*<\n\010Identity\022\017\n\013ID_FOLLOWER\020\000\022\020\n\014ID_CAN" +
-      "DIDATE\020\001\022\r\n\tID_LEADER\020\002*!\n\004Vote\022\014\n\010VOTE_" +
-      "YES\020\000\022\013\n\007VOTE_NO\020\0012\302\001\n\004Raft\0224\n\013RequestVo" +
-      "te\022\021.raft.VoteRequest\032\022.raft.VoteRespons" +
-      "e\022H\n\rAppendEntries\022\032.raft.AppendEntriesR" +
-      "equest\032\033.raft.AppendEntriesResponse\022:\n\016S" +
-      "tartHeartbeat\022\033.raft.StartHeartbeatReque" +
-      "st\032\013.raft.HbAckB\"\n\020com.example.raftB\016Raf" +
-      "tOuterClassb\006proto3"
+      "\010\"3\n\020HeartbeatRequest\022\021\n\tleader_id\030\001 \001(\t" +
+      "\022\014\n\004term\030\002 \001(\005*<\n\010Identity\022\017\n\013ID_FOLLOWE" +
+      "R\020\000\022\020\n\014ID_CANDIDATE\020\001\022\r\n\tID_LEADER\020\002*!\n\004" +
+      "Vote\022\014\n\010VOTE_YES\020\000\022\013\n\007VOTE_NO\020\0012\373\001\n\004Raft" +
+      "\0224\n\013RequestVote\022\021.raft.VoteRequest\032\022.raf" +
+      "t.VoteResponse\022H\n\rAppendEntries\022\032.raft.A" +
+      "ppendEntriesRequest\032\033.raft.AppendEntries" +
+      "Response\022:\n\016StartHeartbeat\022\033.raft.StartH" +
+      "eartbeatRequest\032\013.raft.HbAck\0227\n\020receiveH" +
+      "eartbeat\022\026.raft.HeartbeatRequest\032\013.raft." +
+      "HbAckB\"\n\020com.example.raftB\016RaftOuterClas" +
+      "sb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7370,6 +7991,12 @@ public final class RaftOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_raft_HbAck_descriptor,
         new java.lang.String[] { "Ack", });
+    internal_static_raft_HeartbeatRequest_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_raft_HeartbeatRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_raft_HeartbeatRequest_descriptor,
+        new java.lang.String[] { "LeaderId", "Term", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -37,37 +37,57 @@ def send_append_entries(peer, term, leader_id):
     prev_log_term = log[prev_log_index].term if prev_log_index >= 0 else 0
     entries = log[ni:] if ni < len(log) else []
 
-    channel = grpc.insecure_channel(f"{target_host}:{port}")
-    stub = raft_pb2_grpc.RaftStub(channel)
-
-    request = raft_pb2.AppendEntriesRequest(
-        term=term,
-        leader_id=leader_id,
-        prev_log_index=prev_log_index,
-        prev_log_term=prev_log_term,
-        entries=entries,
-        leader_commit_index=0,
-        transaction_id=str(uuid.uuid4())
-    )
-    
-
     try:
-        response = stub.AppendEntries(request)
-        if response.ack:
-            match_index[follower_id] = ni + len(entries) - 1
-            next_index[follower_id] = match_index[follower_id] + 1
-        else:
-            next_index[follower_id] = max(0, next_index[follower_id] - 1)
+        with grpc.insecure_channel(f"{target_host}:{port}") as channel:
+            stub = raft_pb2_grpc.RaftStub(channel)
+
+            request = raft_pb2.AppendEntriesRequest(
+                term=term,
+                leader_id=leader_id,
+                prev_log_index=prev_log_index,
+                prev_log_term=prev_log_term,
+                entries=entries,
+                leader_commit_index=commit_index,
+                transaction_id=str(uuid.uuid4())
+            )
+
+            response = stub.AppendEntries(request)
+            if response.ack:
+                match_index[follower_id] = ni + len(entries) - 1
+                next_index[follower_id] = match_index[follower_id] + 1
+            else:
+                next_index[follower_id] = max(0, next_index[follower_id] - 1)
 
     except Exception as e:
-        print(f"Error: failed to send AppendEntries due to: {e}")
-    finally:
-        channel.close()
+        print(f"[AppendEntries] Error sending to {peer}: {e}")
+
+def send_heartbeat(target_host, leader_id, term):
+    try:
+        with grpc.insecure_channel(f'{target_host}:211') as channel:
+            stub = raft_pb2_grpc.RaftStub(channel)
+            request = raft_pb2.HeartbeatRequest(leader_id=leader_id, term=term)
+            response = stub.receiveHeartbeat(request)
+            print("[Heartbeat] ACK from", target_host, ":", response.ack)
+    except Exception as e:
+        print(f"[Heartbeat] Error sending to {target_host}: {e}")
 
 
 
-while True:
-    for peer in peers:
-        print(f"Node {self_id} sends RPC AppendEntries to Node {peer.split(':')[0]}")
-        send_append_entries(peer, term, self_id)
-    time.sleep(1)
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python client.py <leader_id> <term>")
+        sys.exit(1)
+
+    self_id = os.getenv("NODE_ID")
+    leader_id = sys.argv[1]
+    term = int(sys.argv[2])
+
+    while True:
+        for peer in peers:
+            peer_host = peer.split(':')[0]
+            if peer_host == self_id:
+                continue
+            print(f"[Leader] Node {self_id} sends AppendEntries to {peer_host}")
+            send_append_entries(peer, term, leader_id)
+            send_heartbeat(peer_host, leader_id, term)
+        time.sleep(1)
